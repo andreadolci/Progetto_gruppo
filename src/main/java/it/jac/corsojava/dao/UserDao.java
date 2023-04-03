@@ -40,9 +40,9 @@ public class UserDao {
 	private Connection getConnection() throws SQLException {
 
 		log.info("open connection");
-		String jdbcUrl = "jdbc:mysql://localhost:3306/primodb?serverTimezone=Europe/Rome";
+		String jdbcUrl = "jdbc:mysql://localhost:3306/lavoro_gruppo?serverTimezone=Europe/Rome";
 		String username = "root";
-		String password = "fede";
+		String password = "nrarqp4132.C";
 		
 		return DriverManager.getConnection(jdbcUrl, username, password);
 	}
@@ -50,8 +50,8 @@ public class UserDao {
 	public void create(Azienda entity) {
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(" INSERT INTO utenti");
-		sb.append(" (username,nome,cognome,password,utente_ins,data_ins)");
+		sb.append(" INSERT INTO azienda");
+		sb.append(" (email, partitaiva, settore, ragionesociale, utenteIns, dataIns)");
 		sb.append(" VALUES");
 		sb.append(" (?, ?, ?, ?, ?, ?)");
 		
@@ -63,10 +63,10 @@ public class UserDao {
 			PreparedStatement pstm = conn.prepareStatement(sb.toString());
 			
 			int i = 1;
-			pstm.setString(i++, entity.getUsername());
-			pstm.setString(i++, entity.getNome());
-			pstm.setString(i++, entity.getCognome());
-			pstm.setString(i++, entity.getPassword());
+			pstm.setString(i++, entity.getEmail());
+			pstm.setString(i++, entity.getPartitaIva());
+			pstm.setString(i++, entity.getSettore());
+			pstm.setString(i++, entity.getRagionesociale());
 			pstm.setString(i++, entity.getUtenteIns());
 			pstm.setTimestamp(i++, Timestamp.valueOf(entity.getDataIns().toLocalDateTime()));
 			
@@ -78,22 +78,22 @@ public class UserDao {
 			
 		} catch(SQLException e) {
 			
-			throw new DaoException("Error creating User", e);
+			throw new DaoException("Error creating Azienda", e);
 		}
 	}
 	
 	public void update(long id, Azienda entity) {
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(" update utenti");
+		sb.append(" update azienda");
 		sb.append(" SET ");
-		sb.append(" username = ?,");
-		sb.append(" password = ?,");
-		sb.append(" nome = ?,");
-		sb.append(" cognome = ?,");
+		sb.append(" email = ?,");
+		sb.append(" partitaiva = ?,");
+		sb.append(" settore = ?,");
+		sb.append(" ragionesociale = ?,");
 		sb.append(" utente_mod = ?,");
 		sb.append(" data_mod = ?");
-		sb.append(" where id = ?");
+		sb.append(" where idazienda = ?");
 		
 		log.debug("SQL [{}]", sb);
 		log.debug("Entity [{}]", entity);
@@ -103,10 +103,10 @@ public class UserDao {
 			PreparedStatement pstm = conn.prepareStatement(sb.toString());
 			
 			int i = 1;
-			pstm.setString(i++, entity.getUsername());
-			pstm.setString(i++, entity.getPassword());
-			pstm.setString(i++, entity.getNome());
-			pstm.setString(i++, entity.getCognome());
+			pstm.setString(i++, entity.getEmail());
+			pstm.setString(i++, entity.getPartitaIva());
+			pstm.setString(i++, entity.getSettore());
+			pstm.setString(i++, entity.getRagionesociale());
 			pstm.setString(i++, entity.getUtenteMod());
 			
 //			si può anche usare la funzione setObject(...)
@@ -121,20 +121,20 @@ public class UserDao {
 			
 		} catch(SQLException e) {
 			
-			throw new DaoException("Error updating User", e);
+			throw new DaoException("Error updating Azienda", e);
 		}
 	}
 
 	public void delete(Azienda entity) {
 		
-		delete(entity.getIdUtente());
+		delete(entity.getIdAzienda());
 	}
 	
 	public void delete(long id) {
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(" delete from utenti");
-		sb.append(" where id = ?");
+		sb.append(" delete from azienda");
+		sb.append(" where idazienda = ?");
 		
 		log.debug("SQL [{}]", sb);
 		log.debug("Id [{}]", id);
@@ -153,27 +153,26 @@ public class UserDao {
 			
 		} catch(SQLException e) {
 			
-			throw new DaoException("Error deleting User", e);
+			throw new DaoException("Error deleting Azienda", e);
 		}
 	}
 	
-	public Azienda findById(long idUtente) {
+	public Azienda findById(long idAzienda) {
 
 		Azienda result = null;
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("SELECT id, username, nome, cognome, password, ");
-		sb.append(" utente_ins, data_ins, utente_mod, data_mod");
-		sb.append(" FROM utenti");
-		sb.append(" WHERE id = ?");
+		sb.append("SELECT idazienda, email, partitaiva, settore, ragionesociale, utenteIns, utenteMod, dataIns, dataMod ");
+		sb.append(" FROM azienda");
+		sb.append(" WHERE idazienda = ?");
 		
 		try(Connection conn = getConnection()) {
 			
 			PreparedStatement pstm = conn.prepareStatement(sb.toString());
 			
 			int i = 1;
-			pstm.setLong(i++, idUtente);
+			pstm.setLong(i++, idAzienda);
 			
 			ResultSet rs = pstm.executeQuery();
 			
@@ -181,22 +180,22 @@ public class UserDao {
 				
 				result = new Azienda();
 				
-				result.setIdUtente(rs.getLong("id"));
-				result.setUsername(rs.getString("username"));
-				result.setNome(rs.getString("nome"));
-				result.setCognome(rs.getString("cognome"));
-				result.setPassword(rs.getString("password"));
-				result.setUtenteIns(rs.getString("utente_ins"));
-				result.setUtenteMod(rs.getString("utente_mod"));
-				result.setDataIns(ZonedDateTime.of(rs.getTimestamp("data_ins").toLocalDateTime(), ZoneId.systemDefault()));
-				Timestamp dataMod = rs.getTimestamp("data_mod");
+				result.setIdAzienda(idAzienda);
+				result.setEmail(rs.getString("email"));
+				result.setPartitaIva(rs.getString("partitaiva"));
+				result.setSettore(rs.getString("settore"));
+				result.setRagionesociale(rs.getString("ragionesociale"));
+				result.setUtenteIns(rs.getString("utenteIns"));
+				result.setUtenteMod(rs.getString("utenteMod"));
+				result.setDataIns(ZonedDateTime.of(rs.getTimestamp("dataIns").toLocalDateTime(), ZoneId.systemDefault()));
+				Timestamp dataMod = rs.getTimestamp("dataMod");
 				if (dataMod != null) {
 					result.setDataMod(ZonedDateTime.of(dataMod.toLocalDateTime(), ZoneId.systemDefault()));
 				}
 			}
 			
 		} catch(SQLException e) {
-			throw new DaoException("Error loading User", e);
+			throw new DaoException("Error loading Azienda", e);
 		}
 		
 		return result;
@@ -208,9 +207,8 @@ public class UserDao {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("SELECT id, username, nome, cognome, password, ");
-		sb.append(" utente_ins, data_ins, utente_mod, data_mod");
-		sb.append(" FROM utenti");
+		sb.append("SELECT idazienda, email, partitaiva, settore, ragionesociale, utenteIns, utenteMod, dataIns, dataMod ");
+		sb.append(" FROM azienda");
 		
 		try(Connection conn = getConnection()) {
 			
@@ -220,26 +218,26 @@ public class UserDao {
 			
 			while(rs.next()) {
 				
-				Azienda user = new Azienda();
+				Azienda azienda = new Azienda();
 				
-				user.setIdUtente(rs.getLong("id"));
-				user.setUsername(rs.getString("username"));
-				user.setNome(rs.getString("nome"));
-				user.setCognome(rs.getString("cognome"));
-				user.setPassword(rs.getString("password"));
-				user.setUtenteIns(rs.getString("utente_ins"));
-				user.setUtenteMod(rs.getString("utente_mod"));
-				user.setDataIns(ZonedDateTime.of(rs.getTimestamp("data_ins").toLocalDateTime(), ZoneId.systemDefault()));
-				Timestamp dataMod = rs.getTimestamp("data_mod");
+				azienda.setIdAzienda(rs.getLong("idazienda"));
+				azienda.setEmail(rs.getString("email"));
+				azienda.setPartitaIva(rs.getString("partitaiva"));
+				azienda.setSettore(rs.getString("settore"));
+				azienda.setRagionesociale(rs.getString("ragionesociale"));
+				azienda.setUtenteIns(rs.getString("utenteIns"));
+				azienda.setUtenteMod(rs.getString("utenteMod"));
+				azienda.setDataIns(ZonedDateTime.of(rs.getTimestamp("dataIns").toLocalDateTime(), ZoneId.systemDefault()));
+				Timestamp dataMod = rs.getTimestamp("dataMod");
 				if (dataMod != null) {
-					user.setDataMod(ZonedDateTime.of(dataMod.toLocalDateTime(), ZoneId.systemDefault()));
+					azienda.setDataMod(ZonedDateTime.of(dataMod.toLocalDateTime(), ZoneId.systemDefault()));
 				}
 				
-				resultList.add(user);
+				resultList.add(azienda);
 			}
 			
 		} catch(SQLException e) {
-			throw new DaoException("Error loading User", e);
+			throw new DaoException("Error loading Azienda", e);
 		}
 		
 		return resultList;
