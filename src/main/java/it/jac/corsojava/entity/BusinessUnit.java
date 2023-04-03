@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class BusinessUnit 
 {
-	private long idBuusinessUnit;
+	private long idBusinessUnit;
 	private String area;
 	private long idAzienda;
 	
@@ -14,11 +14,11 @@ public class BusinessUnit
 	private ZonedDateTime dataIns;
 	private ZonedDateTime dataMod;
 	
-	public long getIdBuusinessUnit() {
-		return idBuusinessUnit;
+	public long getIdBusinessUnit() {
+		return idBusinessUnit;
 	}
-	public void setIdBuusinessUnit(int idBuusinessUnit) {
-		this.idBuusinessUnit = idBuusinessUnit;
+	public void setIdBusinessUnit(long idBuusinessUnit) {
+		this.idBusinessUnit = idBuusinessUnit;
 	}
 	public String getArea() {
 		return area;
@@ -58,11 +58,11 @@ public class BusinessUnit
 		this.idAzienda = idAzienda;
 	}
 	public void setIdBuusinessUnit(long idBuusinessUnit) {
-		this.idBuusinessUnit = idBuusinessUnit;
+		this.idBusinessUnit = idBuusinessUnit;
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(area, dataIns, dataMod, idAzienda, idBuusinessUnit, utenteIns, utenteMod);
+		return Objects.hash(area, dataIns, dataMod, idAzienda, idBusinessUnit, utenteIns, utenteMod);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -75,12 +75,12 @@ public class BusinessUnit
 		BusinessUnit other = (BusinessUnit) obj;
 		return Objects.equals(area, other.area) && Objects.equals(dataIns, other.dataIns)
 				&& Objects.equals(dataMod, other.dataMod) && idAzienda == other.idAzienda
-				&& idBuusinessUnit == other.idBuusinessUnit && Objects.equals(utenteIns, other.utenteIns)
+				&& idBusinessUnit == other.idBusinessUnit && Objects.equals(utenteIns, other.utenteIns)
 				&& Objects.equals(utenteMod, other.utenteMod);
 	}
 	@Override
 	public String toString() {
-		return "BusinessUnit [idBuusinessUnit=" + idBuusinessUnit + ", area=" + area + ", idAzienda=" + idAzienda
+		return "BusinessUnit [idBuusinessUnit=" + idBusinessUnit + ", area=" + area + ", idAzienda=" + idAzienda
 				+ ", utenteIns=" + utenteIns + ", utenteMod=" + utenteMod + ", dataIns=" + dataIns + ", dataMod="
 				+ dataMod + "]";
 	}
