@@ -11,7 +11,7 @@ public class MainDB {
 	
 	public static void main(String[] args) {
 
-		log.info("Applicazione iniziata");
+		log.info("Andrea coglione");
 		
 		UserService.getInstance().create(
 			"armiespo", "armando", "esposito", "123");
