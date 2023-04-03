@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import it.jac.corsojava.entity.Azienda;
 import it.jac.corsojava.exception.EntityNotFoundException;
-import it.jac.corsojava.service.UserService;
+import it.jac.corsojava.service.AziendaService;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -51,7 +51,7 @@ public class UserRESTController {
 					.build();
 		}
 		
-		Azienda result = UserService.getInstance().create(
+		Azienda result = AziendaService.getInstance().create(
 			username, user.getNome(), user.getCognome(), password);
 		
 		log.info("Utente creato con successo");
@@ -67,7 +67,7 @@ public class UserRESTController {
 
 		log.info("Ricerco l'elenco degli utenti");
 		
-		List<Azienda> list = UserService.getInstance().findAll();
+		List<Azienda> list = AziendaService.getInstance().findAll();
 		
 		return list;
 	}
@@ -79,7 +79,7 @@ public class UserRESTController {
 
 		log.info("Ricerco utente [id={}]", id);
 		
-		Azienda user = UserService.getInstance().findById(id);
+		Azienda user = AziendaService.getInstance().findById(id);
 		if (user == null) {
 			
 			throw new EntityNotFoundException("User not found");
@@ -94,7 +94,7 @@ public class UserRESTController {
 
 		log.info("Modifico utente [id={}]", id);
 		
-		UserService.getInstance().update(id, userData.getNome(), userData.getCognome());
+		AziendaService.getInstance().update(id, userData.getNome(), userData.getCognome());
 		
 		return Response.ok().build();
 	}
@@ -106,7 +106,7 @@ public class UserRESTController {
 
 		log.info("Elimino utente [id={}]", id);
 		
-		UserService.getInstance().delete(id);
+		AziendaService.getInstance().delete(id);
 		
 		return Response.ok().build();
 	}

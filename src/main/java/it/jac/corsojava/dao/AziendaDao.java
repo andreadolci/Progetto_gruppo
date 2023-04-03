@@ -17,13 +17,13 @@ import org.apache.logging.log4j.Logger;
 import it.jac.corsojava.entity.Azienda;
 import it.jac.corsojava.exception.DaoException;
 
-public class UserDao {
+public class AziendaDao {
 
-	private static Logger log = LogManager.getLogger(UserDao.class);
+	private static Logger log = LogManager.getLogger(AziendaDao.class);
 	
-	private static UserDao instance = new UserDao();
+	private static AziendaDao instance = new AziendaDao();
 	
-	private UserDao() {
+	private AziendaDao() {
 
 //		caricamento dei driver jdbc
 		try {
@@ -33,7 +33,7 @@ public class UserDao {
 		}
 	}
 	
-	public static UserDao getInstance() {
+	public static AziendaDao getInstance() {
 		return instance;
 	}
 	
