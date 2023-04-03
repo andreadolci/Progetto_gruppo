@@ -3,7 +3,6 @@ package it.jac.corsojava;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import it.jac.corsojava.service.UserService;
 
 public class MainDB {
 
@@ -12,9 +11,6 @@ public class MainDB {
 	public static void main(String[] args) {
 
 		log.info("Applicazione start");
-		
-		UserService.getInstance().create(
-			"armiespo", "armando", "esposito", "123");
 		
 		log.info("Applicazione terminata");
 	}
