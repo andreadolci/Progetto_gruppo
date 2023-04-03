@@ -10,7 +10,7 @@ public class MainDB {
 	
 	public static void main(String[] args) {
 
-		log.info("Applicazione start");
+		log.info("Applicazione inizia");
 		
 		log.info("Applicazione terminata");
 	}
