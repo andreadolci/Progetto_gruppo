@@ -14,15 +14,15 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import it.jac.corsojava.entity.BusinessUnit;
+import it.jac.corsojava.entity.Dipendente;
 import it.jac.corsojava.exception.DaoException;
 
-public class BusinessUnitDao {
-private static Logger log = LogManager.getLogger(BusinessUnitDao.class);
+public class DipendenteDao {
+private static Logger log = LogManager.getLogger(DipendenteDao.class);
 	
-	private static BusinessUnitDao instance = new BusinessUnitDao();
+	private static DipendenteDao instance = new DipendenteDao();
 	
-	private BusinessUnitDao() {
+	private DipendenteDao() {
 
 //		caricamento dei driver jdbc
 		try {
@@ -32,7 +32,7 @@ private static Logger log = LogManager.getLogger(BusinessUnitDao.class);
 		}
 	}
 	
-	public static BusinessUnitDao getInstance() {
+	public static DipendenteDao getInstance() {
 		return instance;
 	}
 	
@@ -46,13 +46,13 @@ private static Logger log = LogManager.getLogger(BusinessUnitDao.class);
 		return DriverManager.getConnection(jdbcUrl, username, password);
 	}
 	
-	public void create(BusinessUnit entity) {
+	public void create(Dipendente entity) {
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(" INSERT INTO business_unit");
-		sb.append(" (area, utenteIns, dataIns)");
+		sb.append(" INSERT INTO dipendente");
+		sb.append(" (nome, cognome, datanascita, sesso)");
 		sb.append(" VALUES");
-		sb.append(" (?, ?, ?)");
+		sb.append(" (?, ?, ?, ?)");
 		
 		log.debug("SQL [{", sb,"}]");
 		log.debug("Entity [{", entity,"}]");
@@ -62,7 +62,11 @@ private static Logger log = LogManager.getLogger(BusinessUnitDao.class);
 			PreparedStatement pstm = conn.prepareStatement(sb.toString());
 			
 			int i = 1;
-			pstm.setString(i++, entity.getArea());
+			pstm.setString(i++, entity.getNome());
+			pstm.setString(i++, entity.getCognome());
+			pstm.setObject(i++, entity.getDataNascita());
+			pstm.setString(i++, entity.getSesso());
+			
 			pstm.setString(i++, entity.getUtenteIns());
 			pstm.setTimestamp(i++, Timestamp.valueOf(entity.getDataIns().toLocalDateTime()));
 			
@@ -78,7 +82,7 @@ private static Logger log = LogManager.getLogger(BusinessUnitDao.class);
 		}
 	}
 	
-	public void update(long id, BusinessUnit entity) {
+	public void update(long id, Dipendente entity) {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(" update business_unit");
@@ -115,7 +119,7 @@ private static Logger log = LogManager.getLogger(BusinessUnitDao.class);
 		}
 	}
 
-	public void delete(BusinessUnit entity) {
+	public void delete(Dipendente entity) {
 		
 		delete(entity.getIdBusinessUnit());
 	}
@@ -147,9 +151,9 @@ private static Logger log = LogManager.getLogger(BusinessUnitDao.class);
 		}
 	}
 	
-	public BusinessUnit findById(long idBusinessUnit) {
+	public Dipendente findById(long idBusinessUnit) {
 
-		BusinessUnit result = null;
+		Dipendente result = null;
 		
 		StringBuilder sb = new StringBuilder();
 		
@@ -168,7 +172,7 @@ private static Logger log = LogManager.getLogger(BusinessUnitDao.class);
 			
 			while(rs.next()) {
 				
-				result = new BusinessUnit();
+				result = new Dipendente();
 				
 				result.setIdAzienda(idBusinessUnit);
 				result.setArea("area");
@@ -188,9 +192,9 @@ private static Logger log = LogManager.getLogger(BusinessUnitDao.class);
 		return result;
 	}
 
-	public List<BusinessUnit> findAll() {
+	public List<Dipendente> findAll() {
 		
-		List<BusinessUnit> resultList = new ArrayList<>();
+		List<Dipendente> resultList = new ArrayList<>();
 		
 		StringBuilder sb = new StringBuilder();
 		
@@ -205,7 +209,7 @@ private static Logger log = LogManager.getLogger(BusinessUnitDao.class);
 			
 			while(rs.next()) {
 				
-				BusinessUnit businessUnit = new BusinessUnit();
+				Dipendente businessUnit = new Dipendente();
 				
 				businessUnit.setIdBusinessUnit(rs.getLong("idbusiness_unit"));
 				businessUnit.setArea(rs.getString("area"));

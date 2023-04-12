@@ -70,7 +70,7 @@ public class AziendaService {
 
 	public Azienda update(long idAzienda, String email, String partitaIva, String settore, String ragioneSociale) {
 
-		log.debug("Modifica User");
+		log.debug("Modifica Azienda");
 		log.trace("idAzienda [{}], email [{}], partitaIva [{}],  settore [{}],  ragioneSociale [{}]",
 			idAzienda, email, partitaIva, settore, ragioneSociale);
 		
