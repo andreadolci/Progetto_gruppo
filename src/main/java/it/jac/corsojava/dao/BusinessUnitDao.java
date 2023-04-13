@@ -170,8 +170,8 @@ private static Logger log = LogManager.getLogger(BusinessUnitDao.class);
 				
 				result = new BusinessUnit();
 				
-				result.setIdAzienda(idBusinessUnit);
-				result.setArea("area");
+				result.setIdBusinessUnit(idBusinessUnit);
+				result.setArea(rs.getString("area"));
 				result.setUtenteIns(rs.getString("utenteIns"));
 				result.setUtenteMod(rs.getString("utenteMod"));
 				result.setDataIns(ZonedDateTime.of(rs.getTimestamp("dataIns").toLocalDateTime(), ZoneId.systemDefault()));

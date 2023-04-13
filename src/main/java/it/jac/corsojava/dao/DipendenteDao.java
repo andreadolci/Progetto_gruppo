@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -78,19 +79,23 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 			
 		} catch(SQLException e) {
 			
-			throw new DaoException("Error creating BusinessUnit", e);
+			throw new DaoException("Error creating Dipendente", e);
 		}
 	}
 	
 	public void update(long id, Dipendente entity) {
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(" update business_unit");
+		sb.append(" update dipendente");
 		sb.append(" SET ");
-		sb.append(" area = ?,");
-		sb.append(" utente_mod = ?,");
-		sb.append(" data_mod = ?");
-		sb.append(" where idbusiness_unit = ?");
+		sb.append(" nome = ?,");
+		sb.append(" cognome = ?,");
+		sb.append(" datanascita = ?");
+		sb.append(" sesso = ?");
+		sb.append(" utentemod = ?");
+		sb.append(" datamod = ?");
+		
+		sb.append(" where iddipendente = ?");
 		
 		log.debug("SQL [{}]", sb);
 		log.debug("Entity [{}]", entity);
@@ -100,7 +105,10 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 			PreparedStatement pstm = conn.prepareStatement(sb.toString());
 			
 			int i = 1;
-			pstm.setString(i++, entity.getArea());
+			pstm.setString(i++, entity.getNome());
+			pstm.setString(i++, entity.getCognome());
+			pstm.setObject(i++, entity.getDataNascita());
+			pstm.setString(i++, entity.getSesso());
 			pstm.setString(i++, entity.getUtenteMod());
 			
 //			si può anche usare la funzione setObject(...)
@@ -121,14 +129,14 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 
 	public void delete(Dipendente entity) {
 		
-		delete(entity.getIdBusinessUnit());
+		delete(entity.getIdDipendente());
 	}
 	
 	public void delete(long id) {
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(" delete from business_unit");
-		sb.append(" where idbusiness_unit = ?");
+		sb.append(" delete from dipendente");
+		sb.append(" where iddipendente = ?");
 		
 		log.debug("SQL [{}]", sb);
 		log.debug("Id [{}]", id);
@@ -147,26 +155,26 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 			
 		} catch(SQLException e) {
 			
-			throw new DaoException("Error deleting BusinessUnit", e);
+			throw new DaoException("Error deleting Dipendente", e);
 		}
 	}
 	
-	public Dipendente findById(long idBusinessUnit) {
+	public Dipendente findById(long idDipendente) {
 
 		Dipendente result = null;
 		
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("SELECT *");
-		sb.append(" FROM business_unit");
-		sb.append(" WHERE idbusiness_unit = ?");
+		sb.append(" FROM dipendente");
+		sb.append(" WHERE iddipendente = ?");
 		
 		try(Connection conn = getConnection()) {
 			
 			PreparedStatement pstm = conn.prepareStatement(sb.toString());
 			
 			int i = 1;
-			pstm.setLong(i++, idBusinessUnit);
+			pstm.setLong(i++, idDipendente);
 			
 			ResultSet rs = pstm.executeQuery();
 			
@@ -174,8 +182,11 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 				
 				result = new Dipendente();
 				
-				result.setIdAzienda(idBusinessUnit);
-				result.setArea("area");
+				result.setIdDipendente(idDipendente);
+				result.setNome(rs.getString("nome"));
+				result.setCognome(rs.getString("cognome"));
+				result.setDataNascita((LocalDate) rs.getObject("datanascita"));
+				result.setSesso(rs.getString("sesso"));
 				result.setUtenteIns(rs.getString("utenteIns"));
 				result.setUtenteMod(rs.getString("utenteMod"));
 				result.setDataIns(ZonedDateTime.of(rs.getTimestamp("dataIns").toLocalDateTime(), ZoneId.systemDefault()));
@@ -186,7 +197,7 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 			}
 			
 		} catch(SQLException e) {
-			throw new DaoException("Error loading BusinessUnit", e);
+			throw new DaoException("Error loading Dipendente", e);
 		}
 		
 		return result;
@@ -199,7 +210,7 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("SELECT *");
-		sb.append(" FROM business_unit");
+		sb.append(" FROM dipendente");
 		
 		try(Connection conn = getConnection()) {
 			
@@ -209,23 +220,26 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 			
 			while(rs.next()) {
 				
-				Dipendente businessUnit = new Dipendente();
+				Dipendente dipendente = new Dipendente();
 				
-				businessUnit.setIdBusinessUnit(rs.getLong("idbusiness_unit"));
-				businessUnit.setArea(rs.getString("area"));
-				businessUnit.setUtenteIns(rs.getString("utenteIns"));
-				businessUnit.setUtenteMod(rs.getString("utenteMod"));
-				businessUnit.setDataIns(ZonedDateTime.of(rs.getTimestamp("dataIns").toLocalDateTime(), ZoneId.systemDefault()));
+				dipendente.setIdBusinessUnit(rs.getLong("idbusiness_unit"));
+				dipendente.setNome(rs.getString("nome"));
+				dipendente.setCognome(rs.getString("cognome"));
+				dipendente.setDataNascita((LocalDate) rs.getObject("datanascita"));
+				dipendente.setSesso(rs.getString("sesso"));
+				dipendente.setUtenteIns(rs.getString("utenteIns"));
+				dipendente.setUtenteMod(rs.getString("utenteMod"));
+				dipendente.setDataIns(ZonedDateTime.of(rs.getTimestamp("dataIns").toLocalDateTime(), ZoneId.systemDefault()));
 				Timestamp dataMod = rs.getTimestamp("dataMod");
 				if (dataMod != null) {
-					businessUnit.setDataMod(ZonedDateTime.of(dataMod.toLocalDateTime(), ZoneId.systemDefault()));
+					dipendente.setDataMod(ZonedDateTime.of(dataMod.toLocalDateTime(), ZoneId.systemDefault()));
 				}
 				
-				resultList.add(businessUnit);
+				resultList.add(dipendente);
 			}
 			
 		} catch(SQLException e) {
-			throw new DaoException("Error loading BusinessUnit", e);
+			throw new DaoException("Error loading Dipendente", e);
 		}
 		
 		return resultList;
