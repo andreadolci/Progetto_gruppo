@@ -42,7 +42,7 @@ public class AziendaDao {
 		log.info("open connection");
 		String jdbcUrl = "jdbc:mysql://localhost:3306/lavoro_gruppo?serverTimezone=Europe/Rome";
 		String username = "root";
-		String password = "mysql";
+		String password = "fede";
 		
 		return DriverManager.getConnection(jdbcUrl, username, password);
 	}

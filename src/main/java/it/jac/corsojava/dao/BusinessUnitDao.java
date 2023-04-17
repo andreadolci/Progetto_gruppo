@@ -41,7 +41,7 @@ private static Logger log = LogManager.getLogger(BusinessUnitDao.class);
 		log.info("open connection");
 		String jdbcUrl = "jdbc:mysql://localhost:3306/lavoro_gruppo?serverTimezone=Europe/Rome";
 		String username = "root";
-		String password = "mysql";
+		String password = "fede";
 		
 		return DriverManager.getConnection(jdbcUrl, username, password);
 	}
@@ -50,9 +50,9 @@ private static Logger log = LogManager.getLogger(BusinessUnitDao.class);
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(" INSERT INTO business_unit");
-		sb.append(" (area, utenteIns, dataIns)");
+		sb.append(" (area, utenteIns, dataIns, idazienda)");
 		sb.append(" VALUES");
-		sb.append(" (?, ?, ?)");
+		sb.append(" (?, ?, ?, ?)");
 		
 		log.debug("SQL [{", sb,"}]");
 		log.debug("Entity [{", entity,"}]");
@@ -65,6 +65,7 @@ private static Logger log = LogManager.getLogger(BusinessUnitDao.class);
 			pstm.setString(i++, entity.getArea());
 			pstm.setString(i++, entity.getUtenteIns());
 			pstm.setTimestamp(i++, Timestamp.valueOf(entity.getDataIns().toLocalDateTime()));
+			pstm.setLong(i++, entity.getIdAzienda());
 			
 			log.debug("Tento di eseguire inserimento dati");
 			

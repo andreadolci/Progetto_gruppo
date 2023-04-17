@@ -40,7 +40,7 @@ public class BusinessUnitService {
 		return result;
 	}
 	
-	public BusinessUnit create(String area) {
+	public BusinessUnit create(String area, long idAzienda) {
 
 		log.debug("Creazione nuova BusinessUnit");
 		log.trace("area [{}]]",
@@ -52,6 +52,7 @@ public class BusinessUnitService {
 		
 		BusinessUnit entity = new BusinessUnit();
 		entity.setArea(area);
+		entity.setIdAzienda(idAzienda);
 		entity.setUtenteIns("admin");
 		entity.setDataIns(ZonedDateTime.now());
 
