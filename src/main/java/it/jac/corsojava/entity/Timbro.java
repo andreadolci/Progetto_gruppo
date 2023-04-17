@@ -1,12 +1,13 @@
 package it.jac.corsojava.entity;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
 public class Timbro 
 {
 	private long idTimbro;
-	private ZonedDateTime dataOra;
+	private LocalDateTime dataOra;
 	private String tipo;
 	private long idDipendente;
 	private long idAzienda;
@@ -17,10 +18,10 @@ public class Timbro
 	public void setIdTimbro(long idTimbro) {
 		this.idTimbro = idTimbro;
 	}
-	public ZonedDateTime getDataOra() {
+	public LocalDateTime getDataOra() {
 		return dataOra;
 	}
-	public void setDataOra(ZonedDateTime dataOra) {
+	public void setDataOra(LocalDateTime dataOra) {
 		this.dataOra = dataOra;
 	}
 	public long getIdDipendente() {

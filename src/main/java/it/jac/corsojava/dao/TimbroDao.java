@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ private static Logger log = LogManager.getLogger(TimbroDao.class);
 		log.info("open connection");
 		String jdbcUrl = "jdbc:mysql://localhost:3306/lavoro_gruppo?serverTimezone=Europe/Rome";
 		String username = "root";
-		String password = "fede";
+		String password = "nrarqp4132.C";
 		
 		return DriverManager.getConnection(jdbcUrl, username, password);
 	}
@@ -61,7 +62,7 @@ private static Logger log = LogManager.getLogger(TimbroDao.class);
 			PreparedStatement pstm = conn.prepareStatement(sb.toString());
 			
 			int i = 1;
-			pstm.setTimestamp(i++, Timestamp.valueOf(entity.getDataOra().toLocalDateTime()));
+			pstm.setTimestamp(i++, Timestamp.valueOf(entity.getDataOra()));
 			pstm.setString(i++, entity.getTipo());
 			pstm.setLong(i++, entity.getIdAzienda());
 			pstm.setLong(i++, entity.getIdDipendente());
@@ -136,7 +137,7 @@ private static Logger log = LogManager.getLogger(TimbroDao.class);
 				result.setIdTimbro(idTimbro);
 				result.setIdDipendente(rs.getLong("iddipendente"));
 				result.setTipo(rs.getString("tipo"));
-				result.setDataOra( (ZonedDateTime) rs.getObject("dataora"));
+				result.setDataOra(rs.getTimestamp("dataora").toLocalDateTime());
 				result.setIdAzienda(rs.getLong("idazienda"));
 				
 			}
@@ -170,7 +171,7 @@ private static Logger log = LogManager.getLogger(TimbroDao.class);
 				timbro.setIdTimbro(rs.getLong("idTimbro"));
 				timbro.setIdDipendente(rs.getLong("iddipendente"));
 				timbro.setTipo(rs.getString("tipo"));
-				timbro.setDataOra( (ZonedDateTime) rs.getObject("dataora"));
+				timbro.setDataOra(rs.getTimestamp("dataora").toLocalDateTime());
 				timbro.setIdAzienda(rs.getLong("idazienda"));
 				
 				resultList.add(timbro);

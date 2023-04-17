@@ -1,5 +1,6 @@
 package it.jac.corsojava.service;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class TimbroService {
 		return result;
 	}
 	
-	public Timbro create(ZonedDateTime dataOra, String tipo, long idAzienda, long idDipendente) {
+	public Timbro create(LocalDateTime dataOra, String tipo, long idAzienda, long idDipendente) {
 
 		log.debug("Creazione nuovo TImbro");
 		log.trace("dataOra [{}], tipo [{}]",
