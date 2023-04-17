@@ -51,9 +51,9 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(" INSERT INTO dipendente");
-		sb.append(" (nome, cognome, datanascita, sesso)");
+		sb.append(" (nome, cognome, datanascita, sesso, idazienda, idbusinessunit, utenteins, datains)");
 		sb.append(" VALUES");
-		sb.append(" (?, ?, ?, ?)");
+		sb.append(" (?, ?, ?, ?, ?, ?, ?, ?)");
 		
 		log.debug("SQL [{", sb,"}]");
 		log.debug("Entity [{", entity,"}]");
@@ -67,6 +67,9 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 			pstm.setString(i++, entity.getCognome());
 			pstm.setObject(i++, entity.getDataNascita());
 			pstm.setString(i++, entity.getSesso());
+			
+			pstm.setLong(i++, entity.getIdAzienda());
+			pstm.setLong(i++, entity.getIdBusinessUnit());
 			
 			pstm.setString(i++, entity.getUtenteIns());
 			pstm.setTimestamp(i++, Timestamp.valueOf(entity.getDataIns().toLocalDateTime()));
