@@ -43,7 +43,7 @@ public class BusinessUnitService {
 	public BusinessUnit create(String area, long idAzienda) {
 
 		log.debug("Creazione nuova BusinessUnit");
-		log.trace("area [{}]]",
+		log.trace("area [{}]",
 			area);
 		
 //		verifico che i campi obbligatori siano stati valorizzati
@@ -65,7 +65,7 @@ public class BusinessUnitService {
 
 	public BusinessUnit update(long idBusiness_unit, String area) {
 
-		log.debug("Modifica User");
+		log.debug("Modifica BusinessUnit");
 		log.trace("idBusiness_unit [{}], area [{}]",
 			idBusiness_unit, area);
 		
@@ -92,7 +92,7 @@ public class BusinessUnitService {
 
 		BusinessUnit entity = this.dao.findById(idBusiness_unit);
 		if (entity == null) {
-			throw new EntityNotFoundException("Unable to find azienda [" + idBusiness_unit + "]");
+			throw new EntityNotFoundException("Unable to find businessUnit [" + idBusiness_unit + "]");
 		}
 
 		this.dao.delete(idBusiness_unit);

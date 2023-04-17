@@ -14,7 +14,7 @@ public class MainDB {
 	public static void main(String[] args) 
 	{
 		log.info("Applicazione inizia");
-//		AziendaService.getInstance().create("@gmail.com", "partitaIva", "Vendite", "ragioneSociale");
+		AziendaService.getInstance().create("@gmail.com", "partitaIva", "Vendite", "ragioneSociale");
 		BusinessUnitService.getInstance().create("Vendite", 1);
 		log.info("Applicazione terminata");
 	}

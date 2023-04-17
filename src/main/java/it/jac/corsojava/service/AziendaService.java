@@ -95,7 +95,7 @@ public class AziendaService {
 	
 	public void delete(long idAzienda) {
 
-		log.debug("Cancellazione User");
+		log.debug("Cancellazione Azienda");
 		log.trace("id [{}]", idAzienda);
 
 		Azienda entity = this.dao.findById(idAzienda);
