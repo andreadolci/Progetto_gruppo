@@ -7,13 +7,10 @@ public class Timbro
 {
 	private long idTimbro;
 	private ZonedDateTime dataOra;
+	private String tipo;
 	private long idDipendente;
 	private long idAzienda;
 	
-	private String utenteIns;
-	private String utenteMod;
-	private ZonedDateTime dataIns;
-	private ZonedDateTime dataMod;
 	public long getIdTimbro() {
 		return idTimbro;
 	}
@@ -38,33 +35,15 @@ public class Timbro
 	public void setIdAzienda(long idAzienda) {
 		this.idAzienda = idAzienda;
 	}
-	public String getUtenteIns() {
-		return utenteIns;
+	public String getTipo() {
+		return tipo;
 	}
-	public void setUtenteIns(String utenteIns) {
-		this.utenteIns = utenteIns;
-	}
-	public String getUtenteMod() {
-		return utenteMod;
-	}
-	public void setUtenteMod(String utenteMod) {
-		this.utenteMod = utenteMod;
-	}
-	public ZonedDateTime getDataIns() {
-		return dataIns;
-	}
-	public void setDataIns(ZonedDateTime dataIns) {
-		this.dataIns = dataIns;
-	}
-	public ZonedDateTime getDataMod() {
-		return dataMod;
-	}
-	public void setDataMod(ZonedDateTime dataMod) {
-		this.dataMod = dataMod;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(dataIns, dataMod, dataOra, idAzienda, idDipendente, idTimbro, utenteIns, utenteMod);
+		return Objects.hash(dataOra, idAzienda, idDipendente, idTimbro, tipo);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -75,17 +54,15 @@ public class Timbro
 		if (getClass() != obj.getClass())
 			return false;
 		Timbro other = (Timbro) obj;
-		return Objects.equals(dataIns, other.dataIns) && Objects.equals(dataMod, other.dataMod)
-				&& Objects.equals(dataOra, other.dataOra) && idAzienda == other.idAzienda
-				&& idDipendente == other.idDipendente && idTimbro == other.idTimbro
-				&& Objects.equals(utenteIns, other.utenteIns) && Objects.equals(utenteMod, other.utenteMod);
+		return Objects.equals(dataOra, other.dataOra) && idAzienda == other.idAzienda
+				&& idDipendente == other.idDipendente && idTimbro == other.idTimbro && Objects.equals(tipo, other.tipo);
 	}
 	@Override
 	public String toString() {
-		return "Timbro [idTimbro=" + idTimbro + ", dataOra=" + dataOra + ", idDipendente=" + idDipendente
-				+ ", idAzienda=" + idAzienda + ", utenteIns=" + utenteIns + ", utenteMod=" + utenteMod + ", dataIns="
-				+ dataIns + ", dataMod=" + dataMod + "]";
+		return "Timbro [idTimbro=" + idTimbro + ", dataOra=" + dataOra + ", tipo=" + tipo + ", idDipendente="
+				+ idDipendente + ", idAzienda=" + idAzienda + "]";
 	}
+	
 	
 	
 }
