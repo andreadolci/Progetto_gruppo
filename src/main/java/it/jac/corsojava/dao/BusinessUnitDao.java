@@ -85,8 +85,8 @@ private static Logger log = LogManager.getLogger(BusinessUnitDao.class);
 		sb.append(" update business_unit");
 		sb.append(" SET ");
 		sb.append(" area = ?,");
-		sb.append(" utente_mod = ?,");
-		sb.append(" data_mod = ?");
+		sb.append(" utentemod = ?,");
+		sb.append(" datamod = ?");
 		sb.append(" where idbusiness_unit = ?");
 		
 		log.debug("SQL [{}]", sb);

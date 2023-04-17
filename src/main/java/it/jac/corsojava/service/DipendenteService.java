@@ -87,7 +87,7 @@ public class DipendenteService {
 		entity.setCognome(cognome);;
 		entity.setDataIns(ZonedDateTime.now());
 		entity.setSesso(sesso);
-		
+		entity.setDataNascita(dataNascita);
 		entity.setUtenteMod("admin");
 		entity.setDataMod(ZonedDateTime.now());
 

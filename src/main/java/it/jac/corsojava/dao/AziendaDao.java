@@ -91,8 +91,8 @@ public class AziendaDao {
 		sb.append(" partitaiva = ?,");
 		sb.append(" settore = ?,");
 		sb.append(" ragionesociale = ?,");
-		sb.append(" utente_mod = ?,");
-		sb.append(" data_mod = ?");
+		sb.append(" utentemod = ?,");
+		sb.append(" datamod = ?");
 		sb.append(" where idazienda = ?");
 		
 		log.debug("SQL [{}]", sb);

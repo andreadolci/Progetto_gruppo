@@ -1,6 +1,7 @@
 package it.jac.corsojava.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -93,9 +94,9 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 		sb.append(" SET ");
 		sb.append(" nome = ?,");
 		sb.append(" cognome = ?,");
-		sb.append(" datanascita = ?");
-		sb.append(" sesso = ?");
-		sb.append(" utentemod = ?");
+		sb.append(" datanascita = ?,");
+		sb.append(" sesso = ?,");
+		sb.append(" utentemod = ?,");
 		sb.append(" datamod = ?");
 		
 		sb.append(" where iddipendente = ?");
@@ -110,7 +111,9 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 			int i = 1;
 			pstm.setString(i++, entity.getNome());
 			pstm.setString(i++, entity.getCognome());
-			pstm.setObject(i++, entity.getDataNascita());
+			
+			pstm.setDate(i++, Date.valueOf(entity.getDataNascita()));
+			
 			pstm.setString(i++, entity.getSesso());
 			pstm.setString(i++, entity.getUtenteMod());
 			
@@ -188,7 +191,7 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 				result.setIdDipendente(idDipendente);
 				result.setNome(rs.getString("nome"));
 				result.setCognome(rs.getString("cognome"));
-				result.setDataNascita((LocalDate) rs.getObject("datanascita"));
+				result.setDataNascita(rs.getDate("datanascita").toLocalDate());
 				result.setSesso(rs.getString("sesso"));
 				result.setUtenteIns(rs.getString("utenteIns"));
 				result.setUtenteMod(rs.getString("utenteMod"));
