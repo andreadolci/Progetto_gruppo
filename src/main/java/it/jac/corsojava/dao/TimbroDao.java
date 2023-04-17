@@ -74,7 +74,7 @@ private static Logger log = LogManager.getLogger(TimbroDao.class);
 			
 		} catch(SQLException e) {
 			
-			throw new DaoException("Error creating Dipendente", e);
+			throw new DaoException("Error creating Timbro", e);
 		}
 	}
 	
@@ -106,7 +106,7 @@ private static Logger log = LogManager.getLogger(TimbroDao.class);
 			
 		} catch(SQLException e) {
 			
-			throw new DaoException("Error deleting Dipendente", e);
+			throw new DaoException("Error deleting Timbro", e);
 		}
 	}
 	
@@ -142,7 +142,7 @@ private static Logger log = LogManager.getLogger(TimbroDao.class);
 			}
 			
 		} catch(SQLException e) {
-			throw new DaoException("Error loading Dipendente", e);
+			throw new DaoException("Error loading Timbro", e);
 		}
 		
 		return result;
@@ -177,7 +177,7 @@ private static Logger log = LogManager.getLogger(TimbroDao.class);
 			}
 			
 		} catch(SQLException e) {
-			throw new DaoException("Error loading Dipendente", e);
+			throw new DaoException("Error loading Timbro", e);
 		}
 		
 		return resultList;
