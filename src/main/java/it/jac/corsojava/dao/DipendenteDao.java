@@ -237,10 +237,10 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 				
 				Dipendente dipendente = new Dipendente();
 				
-				dipendente.setIdBusinessUnit(rs.getLong("idbusiness_unit"));
+				dipendente.setIdBusinessUnit(rs.getLong("idbusinessunit"));
 				dipendente.setNome(rs.getString("nome"));
 				dipendente.setCognome(rs.getString("cognome"));
-				dipendente.setDataNascita((LocalDate) rs.getObject("datanascita"));
+				dipendente.setDataNascita(rs.getDate("datanascita").toLocalDate());
 				dipendente.setSesso(rs.getString("sesso"));
 				dipendente.setEmail(rs.getString("email"));
 				dipendente.setPassword(rs.getString("password"));
