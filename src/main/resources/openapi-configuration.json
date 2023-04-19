@@ -7,7 +7,7 @@
     "openAPI": {
         "info": {
             "version": "1.0",
-            "title": "Swagger PrimoDB Config File",
+            "title": "Swagger progetto_gruppo Config File",
             "description": "This is a sample server for Jersey3.",
             "termsOfService": "http://swagger.io/terms/",
             "contact": {
@@ -19,7 +19,7 @@
             }
         },
         "servers": [{
-        	"url": "http://localhost:8080/primoDB/"
+        	"url": "http://localhost:8080/progetto_gruppo/"
         }]
     }
 }
