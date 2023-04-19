@@ -80,12 +80,12 @@ public class TimbroRESTController {
 
 		log.info("Ricerco timbro [id={}]", id);
 		
-		Timbro user = TimbroService.getInstance().findById(id);
-		if (user == null) {
+		Timbro timbro = TimbroService.getInstance().findById(id);
+		if (timbro == null) {
 			
 			throw new EntityNotFoundException("Timbro not found");
 		}
-		return user;
+		return timbro;
 	}
 
 	@DELETE
