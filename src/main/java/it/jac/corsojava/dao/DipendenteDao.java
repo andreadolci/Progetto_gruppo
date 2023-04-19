@@ -43,7 +43,7 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 		log.info("open connection");
 		String jdbcUrl = "jdbc:mysql://localhost:3306/lavoro_gruppo?serverTimezone=Europe/Rome";
 		String username = "root";
-		String password = "fede";
+		String password = "nrarqp4132.C";
 		
 		return DriverManager.getConnection(jdbcUrl, username, password);
 	}
@@ -52,9 +52,9 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(" INSERT INTO dipendente");
-		sb.append(" (nome, cognome, datanascita, sesso, idazienda, idbusinessunit, utenteins, datains)");
+		sb.append(" (nome, cognome, datanascita, sesso, email, password, idazienda, idbusinessunit, utenteins, datains)");
 		sb.append(" VALUES");
-		sb.append(" (?, ?, ?, ?, ?, ?, ?, ?)");
+		sb.append(" (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		
 		log.debug("SQL [{", sb,"}]");
 		log.debug("Entity [{", entity,"}]");
@@ -68,6 +68,8 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 			pstm.setString(i++, entity.getCognome());
 			pstm.setObject(i++, entity.getDataNascita());
 			pstm.setString(i++, entity.getSesso());
+			pstm.setString(i++, entity.getEmail());
+			pstm.setString(i++, entity.getPassword());
 			
 			pstm.setLong(i++, entity.getIdAzienda());
 			pstm.setLong(i++, entity.getIdBusinessUnit());
@@ -96,6 +98,8 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 		sb.append(" cognome = ?,");
 		sb.append(" datanascita = ?,");
 		sb.append(" sesso = ?,");
+		sb.append(" email = ?,");
+		sb.append(" password = ?,");
 		sb.append(" utentemod = ?,");
 		sb.append(" datamod = ?");
 		
@@ -115,6 +119,9 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 			pstm.setDate(i++, Date.valueOf(entity.getDataNascita()));
 			
 			pstm.setString(i++, entity.getSesso());
+			pstm.setString(i++, entity.getEmail());
+			pstm.setString(i++, entity.getPassword());
+			
 			pstm.setString(i++, entity.getUtenteMod());
 			
 //			si può anche usare la funzione setObject(...)
@@ -193,6 +200,8 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 				result.setCognome(rs.getString("cognome"));
 				result.setDataNascita(rs.getDate("datanascita").toLocalDate());
 				result.setSesso(rs.getString("sesso"));
+				result.setEmail(rs.getString("email"));
+				result.setPassword(rs.getString("password"));
 				result.setUtenteIns(rs.getString("utenteIns"));
 				result.setUtenteMod(rs.getString("utenteMod"));
 				result.setDataIns(ZonedDateTime.of(rs.getTimestamp("dataIns").toLocalDateTime(), ZoneId.systemDefault()));
@@ -233,6 +242,8 @@ private static Logger log = LogManager.getLogger(DipendenteDao.class);
 				dipendente.setCognome(rs.getString("cognome"));
 				dipendente.setDataNascita((LocalDate) rs.getObject("datanascita"));
 				dipendente.setSesso(rs.getString("sesso"));
+				dipendente.setEmail(rs.getString("email"));
+				dipendente.setPassword(rs.getString("password"));
 				dipendente.setUtenteIns(rs.getString("utenteIns"));
 				dipendente.setUtenteMod(rs.getString("utenteMod"));
 				dipendente.setDataIns(ZonedDateTime.of(rs.getTimestamp("dataIns").toLocalDateTime(), ZoneId.systemDefault()));

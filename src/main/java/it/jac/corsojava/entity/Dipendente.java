@@ -10,6 +10,8 @@ public class Dipendente
 	private String sesso;
 	private String nome;
 	private String cognome;
+	private String email;
+	private String password;
 	private LocalDate dataNascita;
 	private long idAzienda;
 	private long idBusinessUnit;
@@ -41,6 +43,18 @@ public class Dipendente
 	}
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public LocalDate getDataNascita() {
 		return dataNascita;

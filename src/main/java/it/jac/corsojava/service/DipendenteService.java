@@ -41,11 +41,11 @@ public class DipendenteService {
 		return result;
 	}
 	
-	public Dipendente create(String nome, String cognome, LocalDate dataNascita, String sesso, long idAzienda, long idBusinessUnit) {
+	public Dipendente create(String nome, String cognome, LocalDate dataNascita, String sesso, String email, String password, long idAzienda, long idBusinessUnit) {
 
 		log.debug("Creazione nuova Dipendente");
-		log.trace("nome [{}], cognome [{}], dataNascita [{}], sesso [{}]",
-			nome, cognome, dataNascita, sesso);
+		log.trace("nome [{}], cognome [{}], dataNascita [{}], sesso [{}], email [{}], password [{}]",
+			nome, cognome, dataNascita, sesso, email, password);
 		
 //		verifico che i campi obbligatori siano stati valorizzati
 //		mi limito a lanciare eccezione se questi non sono validi
@@ -53,12 +53,17 @@ public class DipendenteService {
 		Objects.requireNonNull(cognome);
 		Objects.requireNonNull(dataNascita);
 		Objects.requireNonNull(sesso);
+		Objects.requireNonNull(email);
+		Objects.requireNonNull(password);
 		
 		Dipendente entity = new Dipendente();
 		entity.setNome(nome);
 		entity.setCognome(cognome);
 		entity.setDataNascita(dataNascita);
 		entity.setSesso(sesso);
+		entity.setEmail(email);
+		entity.setPassword(password);
+		
 		entity.setIdAzienda(idAzienda);
 		entity.setIdBusinessUnit(idBusinessUnit);
 		
@@ -72,11 +77,11 @@ public class DipendenteService {
 		return entity;
 	}
 
-	public Dipendente update(String nome, String cognome, LocalDate dataNascita, String sesso, long idDipendente) {
+	public Dipendente update(String nome, String cognome, LocalDate dataNascita, String sesso, String email, String password, long idDipendente) {
 
 		log.debug("Modifica Dipendente");
-		log.trace("idDipendente [{}], nome [{}], cognome[{}], dataNascita[{}], sesso[{}], ",
-			idDipendente, nome, cognome, dataNascita, sesso);
+		log.trace("idDipendente [{}], nome [{}], cognome[{}], dataNascita[{}], sesso[{}], email[{}], password[{}]",
+			idDipendente, nome, cognome, dataNascita, sesso, email, password);
 		
 		Dipendente entity = this.dao.findById(idDipendente);
 		if (entity == null) {
@@ -87,6 +92,9 @@ public class DipendenteService {
 		entity.setCognome(cognome);;
 		entity.setDataIns(ZonedDateTime.now());
 		entity.setSesso(sesso);
+		entity.setEmail(email);
+		entity.setPassword(password);
+		
 		entity.setDataNascita(dataNascita);
 		entity.setUtenteMod("admin");
 		entity.setDataMod(ZonedDateTime.now());

@@ -54,6 +54,24 @@ public class DipendenteRESTController {
 					.build();
 		}
 		
+		String email = dipendente.getEmail();
+		if (email == null || email.trim().length() == 0) {
+			
+			return Response.status(Status.BAD_REQUEST)
+					.entity("Email non valorizzato")
+					.header("Content-Type", "text/plain")
+					.build();
+		}
+		
+		String password = dipendente.getPassword();
+		if (password == null || password.trim().length() == 0) {
+			
+			return Response.status(Status.BAD_REQUEST)
+					.entity("Sesso non valorizzato")
+					.header("Content-Type", "text/plain")
+					.build();
+		}
+		
 		String nome = dipendente.getNome();
 		if (nome == null || nome.trim().length() == 0) {
 			
@@ -73,7 +91,7 @@ public class DipendenteRESTController {
 		}
 		
 		Dipendente result = DipendenteService.getInstance().create(
-			nome, cognome, dataNascita, sesso, dipendente.getIdAzienda(), dipendente.getIdBusinessUnit());
+			nome, cognome, dataNascita, sesso, email, password, dipendente.getIdAzienda(), dipendente.getIdBusinessUnit());
 		
 		log.info("Timbro creato con successo");
 		
@@ -84,7 +102,7 @@ public class DipendenteRESTController {
 
 		log.info("Modifico dipendente [id={}]", id);
 		
-		DipendenteService.getInstance().update(dipendenteData.getNome(), dipendenteData.getCognome(), dipendenteData.getDataNascita(), dipendenteData.getSesso(), id);
+		DipendenteService.getInstance().update(dipendenteData.getNome(), dipendenteData.getCognome(), dipendenteData.getDataNascita(), dipendenteData.getSesso(), dipendenteData.getEmail(), dipendenteData.getPassword(), id);
 		
 		return Response.ok().build();
 	}
