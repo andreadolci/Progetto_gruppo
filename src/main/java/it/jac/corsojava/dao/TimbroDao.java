@@ -41,7 +41,7 @@ private static Logger log = LogManager.getLogger(TimbroDao.class);
 		log.info("open connection");
 		String jdbcUrl = "jdbc:mysql://localhost:3306/lavoro_gruppo?serverTimezone=Europe/Rome";
 		String username = "root";
-		String password = "Simone03_";
+		String password = "fede";
 		
 		return DriverManager.getConnection(jdbcUrl, username, password);
 	}
@@ -149,6 +149,46 @@ private static Logger log = LogManager.getLogger(TimbroDao.class);
 		return result;
 	}
 
+	
+	public List<Timbro> findByIdUtente(long idUtente)
+	{
+		List<Timbro> resultList = new ArrayList<>();
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("SELECT *");
+		sb.append(" FROM timbro");
+		sb.append(" where iddipendente=?;");
+		
+		try(Connection conn = getConnection()) {
+			
+			PreparedStatement pstm = conn.prepareStatement(sb.toString());
+			
+			int i = 1;
+			pstm.setLong(i++, idUtente);
+			
+			ResultSet rs = pstm.executeQuery();
+			
+			while(rs.next()) {
+				
+				Timbro timbro = new Timbro();
+				
+				timbro.setIdTimbro(rs.getLong("idTimbro"));
+				timbro.setIdDipendente(rs.getLong("iddipendente"));
+				timbro.setTipo(rs.getString("tipo"));
+				timbro.setDataOra(rs.getTimestamp("dataora").toLocalDateTime());
+				timbro.setIdAzienda(rs.getLong("idazienda"));
+				
+				resultList.add(timbro);
+			}
+			
+		} catch(SQLException e) {
+			throw new DaoException("Error loading Timbro", e);
+		}
+		
+		return resultList;
+	}
+	
 	public List<Timbro> findAll() {
 		
 		List<Timbro> resultList = new ArrayList<>();

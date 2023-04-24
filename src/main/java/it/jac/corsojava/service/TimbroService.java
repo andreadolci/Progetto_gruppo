@@ -82,6 +82,19 @@ public class TimbroService {
 		log.info("TImbro eliminato [id={}]", idTimbro);
 	}
 
+	public List<Timbro> findByIdUtente(long idUtente)
+	{
+		List<Timbro> result = new ArrayList<>();
+		
+		log.debug("Estrazione lista completa TImbro dove idUtente="+idUtente);
+		
+		result.addAll(this.dao.findByIdUtente(idUtente));
+		
+		log.debug("Estratti {} elementi", result.size());
+		
+		return result;
+	}
+	
 	public List<Timbro> findAll() {
 
 		List<Timbro> result = new ArrayList<>();

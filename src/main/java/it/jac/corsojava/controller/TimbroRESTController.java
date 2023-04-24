@@ -79,7 +79,23 @@ public class TimbroRESTController {
 	}
 
 	@GET
-	@Path("/{id}")
+	@Path("/idUtente={idUtente}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Map<String, List<Timbro>> findByIdUtente(@PathParam("idUtente") long idUtente) {
+
+		log.info("Ricerco timbro [idUtente={}]", idUtente);
+		
+		List<Timbro> list = TimbroService.getInstance().findByIdUtente(idUtente);
+		
+		Map<String,  List<Timbro>> result = new HashMap<>();
+		
+		result.put("data", list);
+		
+		return result;
+	}
+	
+	@GET
+	@Path("/id={id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Timbro findById(@PathParam("id") long id) {
 
