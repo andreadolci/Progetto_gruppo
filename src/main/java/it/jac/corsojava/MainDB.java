@@ -21,18 +21,21 @@ public class MainDB {
 		
 		//Esempi di create
 		
-//		AziendaService.getInstance().create("@gmail.com", "partitaIva", "Elettronica", "ragioneSociale");
-//		AziendaService.getInstance().create("prova2@gmail.com", "partitaIva2", "Elettronica", "ragioneSociale2");
-//		BusinessUnitService.getInstance().create("Vendite", 2);
-//		BusinessUnitService.getInstance().create("Risorse Umane", 1);
-//		BusinessUnitService.getInstance().create("Risorse Umane", 2);
-//		BusinessUnitService.getInstance().create("Relazioni Internazionali", 1);
-//		BusinessUnitService.getInstance().create("Relazioni Internazionali", 2);
-//		DipendenteService.getInstance().create("Federico", "Bonomi", LocalDate.of(2003, 5, 11), "M", 1, 1);
-//		DipendenteService.getInstance().create("Andrea", "Dolci", LocalDate.of(2003, 12, 11), "F", 1, 2);
-//		DipendenteService.getInstance().create("Simone", "Airaghi", LocalDate.of(2003, 6, 3), "M", 1, 2);
-//		TimbroService.getInstance().create(LocalDateTime.now(), "Entrata", 1, 1);
-//		TimbroService.getInstance().create(LocalDateTime.now(), "Uscita", 1, 1);
+		AziendaService.getInstance().create("info@costruzioniiroma.it", "07895640217", "Edile", "Costruzioni Roma S.r.l.");
+		AziendaService.getInstance().create("info@lofficinadelgusto.it", "03458960373", "Meccanico", "L'officina del Gusto");
+		AziendaService.getInstance().create("info@infolab.it", "06674680984", "Informatico", "InfoLab");
+		
+		BusinessUnitService.getInstance().create("Vendite",4);
+		BusinessUnitService.getInstance().create("Risorse Umane", 5);
+		BusinessUnitService.getInstance().create("Finanziaria", 6);
+		
+		DipendenteService.getInstance().create("Federico", "Bonomi", LocalDate.of(2003, 05, 11), "M", "fede.bonomi@gmail.com", "1234", 4, 7); 
+		DipendenteService.getInstance().create("Andrea", "Dolci", LocalDate.of(2003, 12, 11), "M", "dolciandrea@gmail.com", "5678", 6 , 9);
+		DipendenteService.getInstance().create("Simone", "Airaghi", LocalDate.of(2003, 06, 03), "M", "simone.airaghi@gmail.com", "9101", 5, 8);
+		
+		TimbroService.getInstance().create(LocalDateTime.now(), "Entrata", 5, 7);
+		TimbroService.getInstance().create(LocalDateTime.now(), "Uscita", 4, 6);
+		TimbroService.getInstance().create(LocalDateTime.now(), "Uscita", 6, 8);
 		
 		//Esempi di Update
 		
