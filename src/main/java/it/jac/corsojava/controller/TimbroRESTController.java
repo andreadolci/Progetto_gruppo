@@ -1,7 +1,9 @@
 package it.jac.corsojava.controller;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +15,6 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -64,13 +65,17 @@ public class TimbroRESTController {
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Timbro> findAll() {
+	public Map<String, List<Timbro>> findAll() {
 
 		log.info("Ricerco l'elenco dei timbri");
 		
 		List<Timbro> list = TimbroService.getInstance().findAll();
 		
-		return list;
+		Map<String,  List<Timbro>> result = new HashMap<>();
+		
+		result.put("data", list);
+		
+		return result;
 	}
 
 	@GET
